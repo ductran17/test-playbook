@@ -1,0 +1,49 @@
+- name: Demonstrate multiple task progress with delays
+  hosts: all
+  gather_facts: no  # Disable fact gathering to speed up execution and avoid server changes
+  tasks:
+    - name: Print initial message
+      ansible.builtin.debug:
+        msg: "Starting the demo process at {{ ansible_date_time.iso8601 }}"
+      register: result
+
+    - name: Pause after initial message
+      ansible.builtin.pause:
+        seconds: 5
+      when: result is defined
+
+    - name: Print step 1 message
+      ansible.builtin.debug:
+        msg: "This is step 1 - Preparing the environment"
+
+    - name: Pause after step 1
+      ansible.builtin.pause:
+        seconds: 5
+
+    - name: Print step 2 message
+      ansible.builtin.debug:
+        msg: "This is step 2 - Simulating a configuration check"
+
+    - name: Pause after step 2
+      ansible.builtin.pause:
+        seconds: 5
+
+    - name: Print step 3 message
+      ansible.builtin.debug:
+        msg: "This is step 3 - Checking system status"
+
+    - name: Pause after step 3
+      ansible.builtin.pause:
+        seconds: 5
+
+    - name: Print step 4 message
+      ansible.builtin.debug:
+        msg: "This is step 4 - Finalizing setup"
+
+    - name: Pause after step 4
+      ansible.builtin.pause:
+        seconds: 5
+
+    - name: Print final message
+      ansible.builtin.debug:
+        msg: "Demo completed successfully at {{ ansible_date_time.iso8601 }}"
